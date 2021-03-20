@@ -1,7 +1,15 @@
+
 import '../../Main.css'
 import Logo from '../Logo'
 
 export default function Header() {
+   const handeleBtnLogin = () => {
+      window.location.href = "/login"
+   }
+
+   const handeleBtnSignup = () => {
+      window.location.href = "/signup"
+   }
     return (
        <header>
           <div className="start">
@@ -11,8 +19,8 @@ export default function Header() {
              </div>
           </div>
           <div className="logins">
-             <a href="/login">Login</a>
-             <button className="signup">Creat Account</button>
+            <button className="login" type="button" onClick={handeleBtnLogin}>Login</button>
+             <button className="signup" type="button" onClick={handeleBtnSignup}>Creat Account</button>
           </div>
       </header>
     )
