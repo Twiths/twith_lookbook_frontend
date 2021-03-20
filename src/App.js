@@ -1,24 +1,37 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Dashboard from './Components/Dashboard/Dashboard'
+import Preferences from './Components/Preferences/Preferences'
 import './App.css';
+import Login from './Components/Login';
+import useToken from './Components/useToken';
+import Home from './Components/Home/Home';
+import NotFound from './Components/NotFound/NotFound'
+
+
+
 
 function App() {
+  const { token, setToken } = useToken();
+
+  if(!token) {
+    return <Login setToken={setToken} />
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route strict path="/dashboard">
+            <Dashboard />
+          </Route>
+          <Route exact path="/preferences">
+            <Preferences />
+          </Route>
+          <Route component={NotFound} />
+        </Switch>
+      </BrowserRouter>
   );
 }
 
