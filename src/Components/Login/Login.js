@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import API_URL from '../config/config'
-import './Login.css'
-import Header from './Header/Header';
+import API_URL from '../../config/config'
+import '../Login.css'
+import Header from '../Header/Header';
 
 async function loginUser(credentials) {
     return await fetch(`${API_URL}/users/login`, {
