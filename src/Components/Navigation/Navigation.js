@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaDev } from "react-icons/fa";
+import Logo from '../Logo'
 import { BiMessageRoundedCheck } from "react-icons/bi";
 import { RiNotificationLine } from "react-icons/ri";
 import { FiSearch } from "react-icons/fi";
@@ -24,8 +24,8 @@ const Navigation = (props) => {
           className="headerContainer__hamburgerMenu"
           onClick={() => props.openMenu()}
         ></div>
-        <a href="https://dev.to" className="headerContainer__logo">
-          <FaDev size="3.125rem" />
+        <a href="/" className="headerContainer__logo">
+          <Logo size="3.125rem" />
         </a>
 
         <div className="headerContainer__searchBox">
@@ -56,8 +56,8 @@ const Navigation = (props) => {
         <ul>
           <li onClick={toggle}>
             <a href="/profile">
-              <div className="u-name">CodeBucks</div>
-              <small className="u-name-id">@codebucks</small>
+              <div className="u-name">Twiths</div>
+              <small className="u-name-id">@Twiths</small>
             </a>
           </li>
 
@@ -74,7 +74,7 @@ const Navigation = (props) => {
             <a href="/settings">Settings</a>
           </li>
           <li onClick={LogOut}>
-            <a href="/signout">Signout</a>
+            <a href="/">Signout</a>
           </li>
         </ul>
       </div>
