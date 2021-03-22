@@ -1,15 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Navigation from '../Navigation/Navigation'
+import LeftSidebar from '../LeftSidebar/LeftSidebar'
+import Content from '../Content/Content'
+import RightSidebar from '../RightSidebar/RightSidebar'
 
-const logout = () => {
-    localStorage.clear()
-    window.location.href = "/"
-}
+ 
 function Home() {
+    const [mobileMenu, setmobileMenu] = useState(false);
+
+  const toggle = () => {
+    setmobileMenu(!mobileMenu);
+};
+  
     return (
-        <div className="wrapper">
-      <h1>Twiths LookBook</h1>
-      <button onClick={logout}>Logout</button>
-      </div>
+        <>
+      <Navigation openMenu={toggle} />
+
+      <main className="main-container">
+        <LeftSidebar burgerMenu={mobileMenu} closeMenu={toggle} />
+        <Content />
+        <RightSidebar />
+      </main>
+    </>
     )
 }
 
