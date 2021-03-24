@@ -3,6 +3,8 @@ import Navigation from '../Navigation/Navigation'
 import LeftSidebar from '../LeftSidebar/LeftSidebar'
 import Content from '../Content/Content'
 import RightSidebar from '../RightSidebar/RightSidebar'
+// import Login from '../Login/Login'
+// import { Redirect } from 'react-router'
 
  
 function Home() {
@@ -10,6 +12,7 @@ function Home() {
 
   const toggle = () => {
     setmobileMenu(!mobileMenu);
+
 };
   
     return (
