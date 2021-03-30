@@ -1,3 +1,3 @@
-const API_URl = `https://twiths.herokuapp.com/api`
+const API_URl = `http://localhost:5000/api`
 
 export default API_URl

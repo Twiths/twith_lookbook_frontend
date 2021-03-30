@@ -8,30 +8,14 @@ import './App.scss';
 import Home from './Components/Home/Home';
 import NotFound from './Components/NotFound/NotFound'
 import Login from './Components/Login/Login'
-
-import { logout } from "./Actions/auth";
-import { clearMessage } from "./Actions/message";
-
-import { history } from './helpers/history';
-
+import Signup from "./Components/Signup/Signup";
 
 const App = () => { 
-const { user: currentUser } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    history.listen((location) => {
-      dispatch(clearMessage()); // clear message when changing location
-    });
-  }, [dispatch]);
 
   return (
-      <BrowserRouter history={history}>
+      <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <div>Home</div>
-        </Route>
-        <Route exact path="/home">
           <Home /> 
         </Route>
           <Route strict path="/dashboard">
@@ -42,6 +26,9 @@ const { user: currentUser } = useSelector((state) => state.auth);
         </Route>
         <Route exact path="/login">
           <Login />
+        </Route>
+        <Route exact path="/signup">
+          <Signup />
         </Route>
           <Route component={NotFound} />
         </Switch>

@@ -1,51 +1,22 @@
 /* eslint-disable import/no-anonymous-default-export */
 import {
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
+  AUTH,
   LOGOUT,
 } from "../Actions/Types";
 
-const user = JSON.parse(localStorage.getItem("user"));
+const authReducer = (state = { authData: null }, action) => {
+  switch (action.type) {
+    case AUTH:
+      localStorage.setItem('profile', JSON.stringify({ ...action?.data }));
 
-const initialState = user
-  ? { isLoggedIn: true, user }
-  : { isLoggedIn: false, user: null };
-
-export default function (state = initialState, action) {
-  const { type, payload } = action;
-
-  switch (type) {
-    case REGISTER_SUCCESS:
-      return {
-        ...state,
-        isLoggedIn: false,
-      };
-    case REGISTER_FAIL:
-      return {
-        ...state,
-        isLoggedIn: false,
-      };
-    case LOGIN_SUCCESS:
-      return {
-        ...state,
-        isLoggedIn: true,
-        user: payload.user,
-      };
-    case LOGIN_FAIL:
-      return {
-        ...state,
-        isLoggedIn: false,
-        user: null,
-      };
+      return { ...state, authData: action.data, loading: false, errors: null };
     case LOGOUT:
-      return {
-        ...state,
-        isLoggedIn: false,
-        user: null,
-      };
+      localStorage.clear();
+
+      return { ...state, authData: null, loading: false, errors: null };
     default:
       return state;
   }
-}
+};
+
+export default authReducer

@@ -18,7 +18,7 @@ class AuthService {
 
   register(username, firstName, otherName, password) {
     return api.post('/users/signup', {
-       username,
+      username,
       firstName,
       otherName,
       password

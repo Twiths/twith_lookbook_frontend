@@ -30,7 +30,7 @@ class Login extends Component {
       .then(
         () => {
           // this.props.hasHistory.push('/home');
-          window.location.href = "/home"
+          window.location.href = "/"
         },
         error => {
           console.log("Login fail: error = { " + error.toString() + " }");

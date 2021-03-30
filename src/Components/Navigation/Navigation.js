@@ -1,21 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import decode from 'jwt-decode';
 import Logo from '../Logo'
 import { BiMessageRoundedCheck } from "react-icons/bi";
 import { RiNotificationLine } from "react-icons/ri";
 import { FiSearch } from "react-icons/fi";
 
 const Navigation = (props) => {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const history = useHistory();
   const [showMenu, setshowMenu] = useState(false);
+
+  const logout = () => {
+    dispatch({ type: 'LOGOUT' });
+
+    history.push('/login');
+
+    setUser(null);
+  };
+
+  useEffect(() => {
+    const token = user?.token;
+
+    if (token) {
+      const decodedToken = decode(token);
+
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    }
+
+    setUser(JSON.parse(localStorage.getItem('user')));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
 
   const toggle = () => {
     setshowMenu(!showMenu);
     
     };
     
-    const LogOut = () => {
-        localStorage.clear();
-        window.location.href = "/"
-    }
+
 
   return (
     <header className="header">
@@ -35,20 +60,31 @@ const Navigation = (props) => {
         </div>
 
         <div className="headerContainer__right">
-          <button>Write a post</button>
-          <i className="hidden-search">
-            <FiSearch />
-          </i>
-          <i>
-            <BiMessageRoundedCheck />
-          </i>
-          <i>
-            <RiNotificationLine />
-          </i>
-
-          <span onClick={toggle}>
-            <img src="https://picsum.photos/200" alt="Profile Pictrure" />
-          </span>
+         {
+           user?.result ? (
+             <>
+            <button>Write a post</button>
+            <i className="hidden-search">
+              <FiSearch />
+            </i>
+            <i>
+              <BiMessageRoundedCheck />
+            </i>
+            <i>
+              <RiNotificationLine />
+            </i>
+  
+            <span onClick={toggle}>
+              <img alt={user?.result.name} src={user?.result.imageUrl}/>
+            </span>
+            </>
+           ) : (
+            <>
+            <button onClick={() => window.location.href = '/login'}>Login</button>
+            <button component={Link} to={'/signin'}>Create Account</button>
+            </>
+           )
+         }
         </div>
       </div>
 
@@ -73,7 +109,7 @@ const Navigation = (props) => {
           <li onClick={toggle}>
             <a href="/settings">Settings</a>
           </li>
-          <li onClick={LogOut}>
+          <li onClick={logout}>
             <a href="/">Signout</a>
           </li>
         </ul>
