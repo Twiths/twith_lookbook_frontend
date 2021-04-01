@@ -1,3 +1,3 @@
-const API_URl = `http://localhost:5000` || `https://twiths.herokuapp.com/api`
+const API_URl = process.env.REACT_APP_API_URL //`http://localhost:5000` 
 
 export default API_URl
