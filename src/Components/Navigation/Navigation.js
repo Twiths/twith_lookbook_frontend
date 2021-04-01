@@ -8,7 +8,7 @@ import { RiNotificationLine } from "react-icons/ri";
 import { FiSearch } from "react-icons/fi";
 
 const Navigation = (props) => {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
@@ -24,14 +24,15 @@ const Navigation = (props) => {
 
   useEffect(() => {
     const token = user?.token;
-
     if (token) {
       const decodedToken = decode(token);
+
+      console.log(decodedToken)
 
       if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
 
-    setUser(JSON.parse(localStorage.getItem('user')));
+    setUser(JSON.parse(localStorage.getItem('profile')));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
@@ -39,8 +40,6 @@ const Navigation = (props) => {
     setshowMenu(!showMenu);
     
     };
-    
-
 
   return (
     <header className="header">
@@ -61,7 +60,7 @@ const Navigation = (props) => {
 
         <div className="headerContainer__right">
          {
-           user?.result ? (
+           user ? (
              <>
             <button>Write a post</button>
             <i className="hidden-search">
@@ -75,7 +74,8 @@ const Navigation = (props) => {
             </i>
   
             <span onClick={toggle}>
-              <img alt={user?.result.name} src={user?.result.imageUrl}/>
+              {/* <img alt={user?.result.firstName} src={user?.result.imageUrl}/> */}
+              <button>Img</button>
             </span>
             </>
            ) : (
