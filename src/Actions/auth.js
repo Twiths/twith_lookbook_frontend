@@ -1,86 +1,25 @@
-import {
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT,
-  SET_MESSAGE,
-} from "./Types";
+import * as api from '../Api/index.js'
 
-import AuthService from "../Services/AuthService";
+export const login = (formData, router) => async (dispatch) => {
+  try {
+    const { data } = await api.signIn(formData);
 
-export const register = (username, otherName, password) => (dispatch) => {
-  return AuthService.register(username, otherName, password).then(
-    (response) => {
-      dispatch({
-        type: REGISTER_SUCCESS,
-      });
+    dispatch({ type: 'AUTH', data });
 
-      dispatch({
-        type: SET_MESSAGE,
-        payload: response.data.message,
-      });
-
-      return Promise.resolve();
-    },
-    (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-
-      dispatch({
-        type: REGISTER_FAIL,
-      });
-
-      dispatch({
-        type: SET_MESSAGE,
-        payload: message,
-      });
-
-      return Promise.reject();
-    }
-  );
+    router.push('/');
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export const login = (username, password) => (dispatch) => {
-  return AuthService.login(username, password).then(
-    (data) => {
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: { user: data },
-      });
+export const signup = (formData, router) => async (dispatch) => {
+  try {
+    const { data } = await api.signUp(formData);
 
-      return Promise.resolve();
-    },
-    (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+    dispatch({ type: 'AUTH', data });
 
-      dispatch({
-        type: LOGIN_FAIL,
-      });
-
-      dispatch({
-        type: SET_MESSAGE,
-        payload: message,
-      });
-
-      return Promise.reject();
-    }
-  );
-};
-
-export const logout = () => (dispatch) => {
-  AuthService.logout();
-
-  dispatch({
-    type: LOGOUT,
-  });
+    router.push('/');
+  } catch (error) {
+    console.log(error);
+  }
 };
