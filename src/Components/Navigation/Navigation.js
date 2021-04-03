@@ -6,7 +6,7 @@ import Logo from "../Logo";
 import { BiMessageRoundedCheck } from "react-icons/bi";
 import { RiNotificationLine } from "react-icons/ri";
 import { FiSearch } from "react-icons/fi";
-import { BiUserCircle } from "react-icons/bi";
+import { FaUserCircle } from "react-icons/fa";
 
 const Navigation = (props) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -72,13 +72,9 @@ const Navigation = (props) => {
               <i>
                 <RiNotificationLine />
               </i>
-              <span onClick={toggle} onMouseOver={toggle}>
-                <i>
-                  <BiUserCircle>
-                    {decodedToken?.firstName.charAt(0)}
-                  </BiUserCircle>
-                </i>
-              </span>
+              <i onClick={toggle} onMouseOver={toggle}>
+                <FaUserCircle />
+              </i>
             </>
           ) : (
             <>
@@ -97,8 +93,12 @@ const Navigation = (props) => {
         <ul>
           <li onClick={toggle}>
             <a href="/profile">
-              <div className="u-name">Twiths</div>
-              <small className="u-name-id">@Twiths</small>
+              <div className="u-name">
+                {decodedToken?.firstName || "Twiths"}
+              </div>
+              <small className="u-name-id">
+                @{decodedToken?.username || "twiths"}
+              </small>
             </a>
           </li>
 
